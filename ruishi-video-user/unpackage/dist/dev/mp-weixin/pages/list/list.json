@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "rs-header": "/components/rs-header/rs-header",
+    "rs-card": "/components/rs-card/rs-card"
+  }
+}

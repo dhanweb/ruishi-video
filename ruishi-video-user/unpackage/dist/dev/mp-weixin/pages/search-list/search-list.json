@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "rs-header": "/components/rs-header/rs-header",
+    "u--image": "/uni_modules/uview-ui/components/u--image/u--image",
+    "u-button": "/uni_modules/uview-ui/components/u-button/u-button",
+    "u-icon": "/uni_modules/uview-ui/components/u-icon/u-icon"
+  }
+}

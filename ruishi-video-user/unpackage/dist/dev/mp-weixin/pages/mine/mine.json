@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "锐视视频",
+  "usingComponents": {
+    "rs-header": "/components/rs-header/rs-header",
+    "u-cell-group": "/uni_modules/uview-ui/components/u-cell-group/u-cell-group",
+    "u-cell": "/uni_modules/uview-ui/components/u-cell/u-cell",
+    "u-avatar": "/uni_modules/uview-ui/components/u-avatar/u-avatar",
+    "u-icon": "/uni_modules/uview-ui/components/u-icon/u-icon"
+  }
+}

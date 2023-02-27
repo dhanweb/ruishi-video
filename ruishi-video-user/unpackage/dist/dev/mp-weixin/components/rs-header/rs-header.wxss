@@ -1,0 +1,118 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.rs-header.data-v-097db438 {
+  width: 100%;
+  color: #fff;
+}
+.rs-header .rs-header-box.data-v-097db438 {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  font-size: 20px;
+  background-color: rgba(87, 81, 80, 0.5);
+  position: fixed;
+  z-index: 999;
+  box-sizing: border-box;
+}
+.rs-header .rs-header-box .head-opt.data-v-097db438 {
+  display: flex;
+}
+.rs-header .rs-header-box .head-opt .u-icon.data-v-097db438 {
+  margin-left: 10px;
+  color: #fff;
+}
+.rs-header .popup.data-v-097db438 {
+  width: 240px;
+}
+.rs-header .popup-header.data-v-097db438 {
+  margin-top: 50px;
+  color: #fff;
+}
+.rs-header .popup-header text.data-v-097db438 {
+  color: #999;
+}
+.rs-header .popup-header .no-login.data-v-097db438 {
+  text-align: center;
+}
+.rs-header .popup-header .logined.data-v-097db438 {
+  position: relative;
+  padding: 0 10px;
+}
+.rs-header .popup-header .logined .username.data-v-097db438 {
+  padding-left: 6px;
+  margin-top: 10px;
+}
+.rs-header .popup-header .logined .logut.data-v-097db438 {
+  display: flex;
+  position: absolute;
+  right: 12px;
+  top: 0;
+  background-color: #111215;
+  padding: 4px 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.rs-header .popup-header .logined .logut .u-icon.data-v-097db438 {
+  margin-top: -1px;
+}
+.rs-header .popup-header .login-btn.data-v-097db438 {
+  width: 100px;
+  margin: 0 auto;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+.rs-header .popup-list.data-v-097db438 {
+  margin-top: 20px;
+  padding-left: 10px;
+}
+.rs-header .popup-list .item.data-v-097db438 {
+  font-size: 18px;
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+  color: #fff;
+}
+.rs-header .popup-list .item.data-v-097db438:hover {
+  color: #e40916;
+}
+.rs-header.placeholder.data-v-097db438 {
+  height: 50px;
+  color: #e40916;
+}
+.rs-header.placeholder .rs-header-box.data-v-097db438 {
+  background-color: #fff;
+}
+.rs-header.placeholder .rs-header-box .head-opt .u-icon.data-v-097db438 {
+  color: #333;
+}
+

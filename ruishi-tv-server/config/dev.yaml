@@ -1,0 +1,73 @@
+# 生产环境配置
+app:
+  # 全局前缀
+  prefix: '/api'
+  # 启动端口
+  port: 5858
+
+  # 文件相关
+file:
+  # location 文件上传后存储目录
+  location: './public'
+  # 文件虚拟路径, 必须以 / 开头， 如 http://localhost:8081/static/****.jpg  , 如果不需要则 设置 ''
+  serveRoot: '/static'
+  # 腾讯云对象存储
+  SecretId: 'AKIDWqvrWu1sTotjIabMpzsVt0qQlqeBj24q'
+  SecretKey: 'WmlSwFJ8h5D6j8KHzRebJlyvb080cx4y'
+  # 腾讯云对象存储桶名称
+  Bucket: 'rstv-1259476264'
+  #存储桶所在地域，例如 ap-beijing，必须字段
+  Region: 'ap-guangzhou'
+  # 模板
+  StorageClass: 'STANDARD'
+# 数据库配置
+db:
+  mysql:
+    host: 'localhost'
+    username: 'root'
+    password: '123456'
+    # 数据库名称
+    database: 'ruishi-video'
+    port: 3306
+    charser: 'utf8'
+    logger: 'advanced-console'
+    logging: true
+    multipleStatements: true
+    dropSchema: false
+    # 根据实体自动创建数据库表， 生产环境建议关闭
+    synchronize: true
+    supportBigNumbers: true
+    bigNumberStrings: true
+    # 自动加载实体
+    autoLoadEntities: true
+
+# redis 配置
+redis:
+  host: 'localhost'
+  port: 6379
+  db: 'ruishi-video'
+  keyPrefix: 'nest:'
+
+# jwt 配置
+jwt:
+  # 盐
+  secretkey: 'zANDwNQVFzxlfG9myPxVWAkq4iXJEPhI'
+  # 过期时间
+  expiresIn: '4h'
+  refreshExpiresIn: '2h'
+# 权限 白名单配置
+perm:
+  router:
+    whitelist:
+      [
+        { path: '/api/register', method: 'POST' },
+        { path: '/api/login', method: 'POST' },
+        { path: '/api/perm/{id}', method: 'GET' },
+        { path: '/api/oss/upload', method: 'POST' },
+      ]
+
+# 用户相关
+# 初始密码， 重置密码
+user:
+  # 自定义密码的秘钥
+  SECRET_KEY: 'dhandhandhan'

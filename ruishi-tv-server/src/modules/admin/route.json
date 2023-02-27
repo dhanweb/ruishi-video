@@ -1,0 +1,28 @@
+{
+  "path": "/user",
+  "component": "Layout",
+  "redirect": "/user/list",
+  "meta": {
+    "title": "用户管理",
+    "icon": "user",
+    "hidden": false,
+    "alwaysShow": true,
+    "roles": ["ADMIN"],
+    "keepAlive": true
+  },
+  "children": [
+    {
+      "path": "user",
+      "component": "user/userList/index",
+      "name": "userList",
+      "meta": {
+        "title": "用户列表",
+        "icon": "user",
+        "hidden": false,
+        "alwaysShow": false,
+        "roles": ["ADMIN"],
+        "keepAlive": true
+      }
+    }
+  ]
+}
