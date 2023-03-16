@@ -9,7 +9,6 @@ import { rslog } from 'src/utils/rslog';
 import { CreateUserDto, LoginDto } from './dto/create-user.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { RedisInstance } from 'src/common/redis';
 
 @Injectable()
 export class UserService {
@@ -228,7 +227,25 @@ export class UserService {
   /**
    * 新增观看
    */
-  // async createHistory(user_id: number, video_id: )
+  async createHistory(user_id: number, video_id: number) {
+    const video = await this.videoRepository.findOne({ where: { video_id } });
+    const user = await this.userRepository.findOne({
+      where: { user_id },
+    });
+    const existHistory = await this.historyRepository
+      .createQueryBuilder('history')
+      .where('history.user_id = :user_id AND history.video_id = :video_id', {
+        user_id,
+        video_id,
+      })
+      .getOne();
+    console.log('existHistory', existHistory);
+    if (existHistory) {
+      return '';
+    }
+    const newHistory = this.historyRepository.create({ user, video });
+    return await this.historyRepository.save(newHistory);
+  }
 
   /**
    * 获取用户观看历史

@@ -14,6 +14,7 @@ export interface IVideoInfo {
   is_deleted: boolean;
   cate_id: number[];
   category: ICateInfo[];
+  parts?: IPartInfo[];
 }
 
 export interface ICateInfo {
@@ -30,9 +31,19 @@ export interface IPartInfo {
   description: string;
   duration: string;
   url: string;
+  url2: string;
   cover: string;
   tags?: any;
+  status?: boolean;
+  progress?: number;
+  uploading?: boolean;
+  video_id?: number;
 }
-export interface IVideoDetail extends IVideoInfo {
-  parts: IPartInfo;
+// export interface IVideoDetail {
+//   video: IVideoInfo;
+//   inComplete: IPartInfo[];
+// }
+
+export interface ICategoryParam {
+  category: number[];
 }

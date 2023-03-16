@@ -3,13 +3,18 @@ import App from './App.vue';
 import router from '@/router';
 import { setupStore } from '@/store';
 
-import ElementPlus from 'element-plus';
+// import ElementPlus from 'element-plus';
 
 import Pagination from '@/components/Pagination/index.vue';
 import '@/permission';
 
 // 引入svg注册脚本
 import 'virtual:svg-icons-register';
+
+// import 'default-passive-events';
+
+// videojs的样式
+import 'video.js/dist/video-js.css';
 
 // 国际化
 import i18n from '@/lang/index';
@@ -34,6 +39,6 @@ setupStore(app);
 app
   .component('Pagination', Pagination)
   .use(router)
-  .use(ElementPlus)
+  // .use(ElementPlus)
   .use(i18n)
   .mount('#app');

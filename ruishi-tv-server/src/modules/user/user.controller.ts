@@ -134,6 +134,13 @@ export class UserController {
     );
   }
 
+  @Post('history')
+  @UseGuards(AuthGuard('userJwt'))
+  addHistoryList(@Req() req, @Body() body: { video_id: number }) {
+    rslog.log('collect/getCollectDetail');
+    return this.userService.createHistory(req.user.user_id, body.video_id);
+  }
+
   @Get('history')
   @UseGuards(AuthGuard('userJwt'))
   getHistoryList(@Req() req) {

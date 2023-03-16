@@ -46,6 +46,7 @@
   import {
     getVideoListApi
   } from '../../api/video.js'
+
   export default {
     data() {
       return {
@@ -119,7 +120,7 @@
           justify-content: space-between;
 
           .video-name {
-            font-weight: bold;
+            // font-weight: bold;
             font-size: 16px;
           }
 

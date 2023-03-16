@@ -1,6 +1,6 @@
 import request from '@/utils/request';
 import { AxiosPromise } from 'axios';
-import { IVideoInfo, ICateInfo, IVideoDetail, IPartInfo } from './types';
+import { IVideoInfo, ICateInfo, IPartInfo, ICategoryParam } from './types';
 
 /**
  *  关键词和分页获取视频列表
@@ -121,7 +121,7 @@ export function addCate2Api(data: ICateInfo) {
 /**
  * 获取视频的详细信息
  */
-export function getPartInfoApi(video_id: number): AxiosPromise<IVideoDetail> {
+export function getPartInfoApi(video_id: number): AxiosPromise<IVideoInfo> {
   return request({
     url: `/video/detail/${video_id}`
   });
@@ -139,7 +139,7 @@ export function getPartDetailApi(part_id: number): AxiosPromise<IPartInfo> {
 /**
  * 新建集数信息和上传视频
  */
-export function addPartInfoApi(data) {
+export function addPartInfoApi(data: any): ResultType<IPartInfo> {
   return request({
     url: '/upload/video',
     method: 'post',
@@ -151,11 +151,72 @@ export function addPartInfoApi(data) {
 }
 
 /**
- *
+ * 新增集数
+ */
+export function createPartApi(data: IPartInfo): ResultType<IPartInfo> {
+  return request({
+    url: '/video/part',
+    method: 'post',
+    data
+  });
+}
+
+/**
+ * 删除集数
  */
 export function deletePartApi(part_id: number) {
   return request({
     url: '/video/part/' + part_id,
     method: 'post'
+  });
+}
+
+/**
+ * 编辑集数
+ */
+export function editPartApi(part_id: number, data: IPartInfo) {
+  return request({
+    url: '/video/part/edit/' + part_id,
+    method: 'post',
+    data
+  });
+}
+
+/**
+ * 根据分类获取视频
+ */
+export function getVideoByCateApi(
+  data: ICategoryParam
+): ResultType<IVideoInfo[]> {
+  return request({
+    url: '/video/cate',
+    method: 'post',
+    data: data
+  });
+}
+
+/**
+ * 获取上传签名
+ */
+export async function getSignature() {
+  return request({ url: 'video/uploadKey', method: 'post' }).then(function (
+    response
+  ) {
+    return response.data;
+  });
+}
+
+/**
+ * 设置上传进度
+ */
+
+export function sentUploadProgress(data: {
+  part_id: number;
+  progress: number;
+}) {
+  return request({
+    url: '/video/progress',
+    method: 'post',
+    data
   });
 }

@@ -10,66 +10,74 @@
 		{
 			"path": "pages/mine/mine",
 			"style": {
-				"navigationBarTitleText": "锐视视频"
+				"navigationBarTitleText": "个人中心"
 			}
 		}, {
 			"path": "pages/login/login",
 			"style": {
 				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+        "navigationBarTitleText": "登录"
 			}
 
 		}, {
 			"path": "pages/list/list",
 			"style": {
 				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+        "navigationBarTitleText": "视频大全"
 			}
 
 		}, {
 			"path": "pages/search/search",
 			"style": {
 				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+        "navigationBarTitleText": "搜索"
 			}
 
 		}, {
 			"path": "pages/search-list/search-list",
 			"style": {
 				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+        "navigationBarTitleText": "搜索结果"
 			}
 
 		}, {
 			"path": "pages/play/play",
 			"style": {
 				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+        "navigationBarTitleText": "播放视频"
 			}
 
 		}, {
 			"path": "pages/account/account",
 			"style": {
 				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+        "navigationBarTitleText": "我的账号"
 			}
 
 		}, {
 			"path": "pages/collect/collect",
 			"style": {
 				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+        "navigationBarTitleText": "我的收藏"
 			}
 
 		}, {
 			"path": "pages/record/record",
 			"style": {
 				"navigationBarTitleText": "",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+        "navigationBarTitleText": "播放记录"
 			}
 
 		}
-	],
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",

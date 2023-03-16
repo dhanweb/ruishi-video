@@ -14,6 +14,10 @@ file:
   # 腾讯云对象存储
   SecretId: 'AKIDWqvrWu1sTotjIabMpzsVt0qQlqeBj24q'
   SecretKey: 'WmlSwFJ8h5D6j8KHzRebJlyvb080cx4y'
+  # 防盗key
+  Key: 'gzZJJKJPos3wcGzIwrBU'
+  # 过期时间 单位：分钟
+  Time: 30
   # 腾讯云对象存储桶名称
   Bucket: 'rstv-1259476264'
   #存储桶所在地域，例如 ap-beijing，必须字段
@@ -45,7 +49,8 @@ db:
 redis:
   host: 'localhost'
   port: 6379
-  db: 'ruishi-video'
+  name: 'ruishi-video'
+  password: ''
   keyPrefix: 'nest:'
 
 # jwt 配置
@@ -55,16 +60,6 @@ jwt:
   # 过期时间
   expiresIn: '4h'
   refreshExpiresIn: '2h'
-# 权限 白名单配置
-perm:
-  router:
-    whitelist:
-      [
-        { path: '/api/register', method: 'POST' },
-        { path: '/api/login', method: 'POST' },
-        { path: '/api/perm/{id}', method: 'GET' },
-        { path: '/api/oss/upload', method: 'POST' },
-      ]
 
 # 用户相关
 # 初始密码， 重置密码

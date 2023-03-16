@@ -30,24 +30,49 @@ export class UploadController {
   }
 
   @UseInterceptors(FileInterceptor('file'))
-  @Post('video')
-  async uploadVideo(
-    @Body() createPartDto: CreatePartDto,
-    @UploadedFile() file: FileDto,
-  ) {
-    rslog.log('createPartDto', createPartDto);
-    rslog.log('file', file);
-    return this.videoService.createPart(createPartDto, file);
+  @Post('2')
+  async uploadFiles2(@Body() body: any, @UploadedFile() file: any) {
+    rslog.log('body', body);
+    return this.uploadService.uplods();
+  }
+  // @UseInterceptors(FileInterceptor('file'))
+  @Post('3')
+  async uploadFiles3(@Body() body: any, @UploadedFile() file: any) {
+    rslog.log('body', body);
+    return this.uploadService.CommitUpload();
   }
 
-  @UseInterceptors(FileInterceptor('file'))
-  @Post('video/edit')
-  async uploadVideoAndEdit(
-    @Body() createPartDto: CreatePartDto,
-    @UploadedFile() file: FileDto,
-  ) {
-    rslog.log('createPartDto', createPartDto);
-    rslog.log('file', file);
-    return this.videoService.editPart(createPartDto, file);
-  }
+  // @UseInterceptors(FileInterceptor('file'))
+  // @Post('video')
+  // async uploadVideo(
+  //   @Body() createPartDto: CreatePartDto,
+  //   @UploadedFile() file: FileDto,
+  // ) {
+  //   rslog.log('createPartDto', createPartDto);
+  //   rslog.log('file', file);
+  //   return this.videoService.createPart(createPartDto, file);
+  // }
+
+  // @UseInterceptors(FileInterceptor('file'))
+  // @Post('video/:part_id')
+  // async uploadVideoAndEdit(
+  //   @Param() param: { part_id: number },
+  //   @Body() createPartDto: CreatePartDto,
+  //   @UploadedFile() file: FileDto,
+  // ) {
+  //   rslog.log('uploadVideoAndEdit', createPartDto);
+  //   rslog.log('file', file);
+  //   return this.videoService.editPart(param.part_id, createPartDto, file);
+  // }
+
+  //   @UseInterceptors(FileInterceptor('file'))
+  //   @Post('video/edit')
+  //   async uploadVideoAndEdit(
+  //     @Body() createPartDto: CreatePartDto,
+  //     @UploadedFile() file: FileDto,
+  //   ) {
+  //     rslog.log('createPartDto', createPartDto);
+  //     rslog.log('file', file);
+  //     return this.videoService.editPart(createPartDto, file);
+  //   }
 }

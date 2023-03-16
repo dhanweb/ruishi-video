@@ -3,18 +3,19 @@
     <u-navbar title="搜索" :autoBack="true" :placeholder="true">
     </u-navbar>
     <view class="search-body">
-      <u-search @search="goSeachList" @custom="goSeachList" placeholder="日照香炉生紫烟" v-model="keyword" :clearabled="true" :action-style="actionStyle" shape="square" />
+      <u-search @search="goSeachList" @custom="goSeachList" :placeholder="hotKeyword" v-model="keyword"
+        :clearabled="true" :action-style="actionStyle" shape="square" />
       <view class="search-history">
         <view class="title">搜索历史</view>
         <view class="his-list">
-          <u-tag v-for="item in 6" :key="item" text="标签" closable color="#444" bgColor="#f5f6f7" borderColor="#f5f6f7"
-            @click="goSeachList" @close="closeTag"></u-tag>
+          <u-tag v-for="(item, index) in historyList" :key="index" :text="item" closable color="#444" bgColor="#f5f6f7"
+            borderColor="#f5f6f7" @click="clickTag(index)" @close="clearHistory(index)"></u-tag>
         </view>
       </view>
       <view class="hot-search">
         <view class="title">热门搜索</view>
         <view class="hot-list">
-          <view class="item" v-for="item in 4">
+          <view class="item" v-for="item in 6">
             <text class="num">{{item}}</text>
             <text class="content"> 海贼王 </text>
           </view>
@@ -38,30 +39,52 @@
           textAlign: 'center',
         },
         keyword: '',
-        historyList: []
+        hotKeyword: '凡人修仙传',
+        historyList: [],
       }
     },
     mounted() {
       this.getHistory()
     },
     methods: {
-      goSeachList(index) {
-        console.log('goSeachList');
+      goSeachList() {
+        if (!this.keyword) {
+          this.keyword = this.hotKeyword
+          
+      
+        }
         this.setHistory()
         uni.navigateTo({
           url: '/pages/search-list/search-list?keyword=' + this.keyword
         })
+        this.keyword = ''
       },
-      closeTag() {
-        console.log('closeTag');
+      clickTag(index) {
+        console.log('this.historyList[index]', this.historyList[index]);
+        this.keyword = this.historyList[index]
+        this.goSeachList()
+      },
+      closeTag(index) {
+        // console.log('closeTag');
+        // this.
       },
       getHistory() {
         const existHistory = uni.getStorageSync('rs-tv-history')
         if (existHistory) {
           this.historyList = existHistory
         }
+        console.log('existHistory', existHistory);
       },
       setHistory() {
+        const index = this.historyList.findIndex(item => item === this.keyword)
+        // 表示该关键词已经搜过了，不重复添加
+        if(index !== -1) {
+          return
+        }
+        const length = this.historyList.length
+        if(length > 6) {
+          this.historyList.splice(length, 1)
+        }
         this.historyList.unshift(this.keyword)
         uni.setStorageSync('rs-tv-history', this.historyList)
       },

@@ -8,12 +8,12 @@
 				</u--image>
 			</view>
 			<!-- 显示在封面图片上的数据 -->
-			<view class="cover-box__data">{{video.date}}</view>
+			<view class="cover-box__data">{{video.other}}</view>
 		</view>
 		<!-- 视频内容 -->
 		<view class="content-box">
 			<!-- 视频名称 -->
-			<div class="content-box__name">{{video.name}}</div>
+			<div class="content-box__name">{{video.title}}</div>
 			<!-- 其他内容介绍 -->
 			<div class="content-box__info">
 				<slot>
@@ -36,7 +36,7 @@
 						id: 1,
 						cover: 'https://cdn.uviewui.com/uview/album/1.jpg',
 						date: '即将上映',
-						name: '凡人修仙传'
+						title: '凡人修仙传'
 					}
 				}
 			},
@@ -85,6 +85,7 @@
 			&__name {
 				font-weight: 700;
 				margin: 6px 0;
+        font-size: 14px;
 			}
 
 			&__info {

@@ -5,8 +5,6 @@ const baseUrl = '/api'
 function reuqest(options = {}) {
   options.url = `${baseUrl}${options.url}`
   // 判断本地是否存在token，如果存在则带上请求头
-  console.log('options', options)
-  console.log('store.getters.token', store.getters.token)
   if (store.getters.token) {
     options.header = {
       'content-type': 'application/json',
@@ -15,18 +13,27 @@ function reuqest(options = {}) {
   }
 
   return new Promise((resolved, rejected) => {
-      options.success = (res) => {
-        // 如果请求回来的状态码不是200则执行以下操作
-        if (res.data.code !== 200 && res.data.code !== 201) {
-          if (res.data.code === 401) {
+    options.success = (res) => {
+      // 如果请求回来的状态码不是200则执行以下操作
+      if (res.data.code !== 200 && res.data.code !== 201) {
+        if (res.data.code === 401) {
+          // 提示401，但是本地又有token信息，表示token过期
+          if (store.getters.token) {
+            // 直接清除token，等下一次用户操作再提示登录
+            store.dispatch('user/logout')
+          } else {
             uni.showToast({
               icon: 'none',
               duration: 3000,
               title: '请先登录！',
             })
-            uni.reLaunch({
-              url: '/pages/login/login'
-            })
+            setTimeout(() => {
+              uni.reLaunch({
+                url: '/pages/login/login'
+              })
+            }, 2000)
+          }
+
         } else {
           // 非成功状态码弹窗
           uni.showToast({
@@ -47,8 +54,7 @@ function reuqest(options = {}) {
         // }
         // 返回错误信息
         rejected(res)
-      }
-      else {
+      } else {
         // 请求回来的状态码为200则返回内容
         resolved(res.data)
       }

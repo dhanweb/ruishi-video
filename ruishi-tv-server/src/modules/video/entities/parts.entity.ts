@@ -30,6 +30,9 @@ export class PartsEntity {
   @Column({ comment: '视频链接', default: '' })
   url: string;
 
+  @Column({ comment: '视频链接2，MP4链接', default: '' })
+  url2: string;
+
   @Column({ comment: '视频封面', default: '' })
   cover: string;
 

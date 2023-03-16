@@ -1,17 +1,29 @@
 <script lang="ts">
-export default { name: 'Dashboard' };
+export default { name: "Dashboard" };
 </script>
 
 <script setup lang="ts">
 // 组件引用
-import GithubCorner from '@/components/GithubCorner/index.vue';
-import SvgIcon from '@/components/SvgIcon/index.vue';
-import BarChart from './components/Chart/BarChart.vue';
-import PieChart from './components/Chart/PieChart.vue';
-import RadarChart from './components/Chart/RadarChart.vue';
+import GithubCorner from "@/components/GithubCorner/index.vue";
+import SvgIcon from "@/components/SvgIcon/index.vue";
+import BarChart from "./components/Chart/BarChart.vue";
+import PieChart from "./components/Chart/PieChart.vue";
+import RadarChart from "./components/Chart/RadarChart.vue";
 
-import Project from './components/Project/index.vue';
-import Team from './components/Team/index.vue';
+import Project from "./components/Project/index.vue";
+import Team from "./components/Team/index.vue";
+import { getUserListApi } from "@/api/user";
+const count = ref<number>(0);
+async function initData() {
+  const { data } = await getUserListApi({
+    keyword: "",
+    pageNum: 1,
+    pageSize: 6,
+  });
+  count.value = data.total;
+  console.log("1", data);
+}
+initData();
 </script>
 
 <template>
@@ -26,43 +38,8 @@ import Team from './components/Team/index.vue';
             <svg-icon icon-class="uv" size="4em" />
           </div>
           <div class="card-panel-description">
-            <div class="card-panel-text">访问数</div>
-            <div class="card-panel-num">1000</div>
-          </div>
-        </div>
-      </el-col>
-
-      <el-col :xs="24" :sm="12" :lg="6" class="card-panel__col">
-        <div class="card-panel">
-          <div class="card-panel-icon-wrapper icon-message">
-            <svg-icon icon-class="message" size="4em" />
-          </div>
-          <div class="card-panel-description">
-            <div class="card-panel-text">消息数</div>
-            <div class="card-panel-num">1000</div>
-          </div>
-        </div>
-      </el-col>
-
-      <el-col :xs="24" :sm="12" :lg="6" class="card-panel__col">
-        <div class="card-panel">
-          <div class="card-panel-icon-wrapper icon-money">
-            <svg-icon icon-class="money" size="4em" />
-          </div>
-          <div class="card-panel-description">
-            <div class="card-panel-text">收入金额</div>
-            <div class="card-panel-num">1000</div>
-          </div>
-        </div>
-      </el-col>
-      <el-col :xs="24" :sm="12" :lg="6" class="card-panel__col">
-        <div class="card-panel">
-          <div class="card-panel-icon-wrapper icon-shopping">
-            <svg-icon icon-class="shopping" size="4em" />
-          </div>
-          <div class="card-panel-description">
-            <div class="card-panel-text">订单数</div>
-            <div class="card-panel-num">1000</div>
+            <div class="card-panel-text">用户数</div>
+            <div class="card-panel-num">{{ count }}</div>
           </div>
         </div>
       </el-col>
@@ -78,36 +55,6 @@ import Team from './components/Team/index.vue';
       <!-- 团队介绍 -->
       <el-col :md="12" :lg="12" class="card-panel__col">
         <Team />
-      </el-col>
-    </el-row>
-
-    <!-- Echarts 图表 -->
-    <el-row :gutter="40" style="margin-top: 20px">
-      <el-col :sm="24" :lg="8" class="card-panel__col">
-        <BarChart
-          id="barChart"
-          height="400px"
-          width="100%"
-          class="chart-container"
-        />
-      </el-col>
-
-      <el-col :xs="24" :sm="12" :lg="8" class="card-panel__col">
-        <PieChart
-          id="pieChart"
-          height="400px"
-          width="100%"
-          class="chart-container"
-        />
-      </el-col>
-
-      <el-col :xs="24" :sm="12" :lg="8" class="card-panel__col">
-        <RadarChart
-          id="radarChart"
-          height="400px"
-          width="100%"
-          class="chart-container"
-        />
       </el-col>
     </el-row>
   </div>

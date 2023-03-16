@@ -7,6 +7,7 @@ import {
   ManyToOne,
   OneToOne,
   JoinColumn,
+  CreateDateColumn,
 } from 'typeorm';
 
 @Entity('history')
@@ -19,15 +20,18 @@ export class HistoryEntity {
   user: UserEntity;
 
   @OneToOne(() => VideoEntity, (video) => video.video_id)
-  // @JoinColumn({})
+  @JoinColumn({ name: 'video_id' })
   video: VideoEntity;
 
-  @Column({ type: 'datetime', comment: '观看日期' })
-  view_date: Date;
+  @CreateDateColumn({ type: Date })
+  time: Date;
 
-  @Column({ type: 'datetime', comment: '观看时长' })
-  view_duration: Date;
+  // @Column({ type: 'datetime', comment: '' })
+  // view_date: Date;
 
-  @Column({ type: 'datetime', comment: '观看进度' })
-  view_progress: Date;
+  // @Column({ type: 'datetime', comment: '观看时长' })
+  // view_duration: Date;
+
+  // @Column({ type: 'datetime', comment: '观看进度' })
+  // view_progress: Date;
 }

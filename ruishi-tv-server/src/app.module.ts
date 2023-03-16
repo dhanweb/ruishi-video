@@ -1,4 +1,4 @@
-import { EventsGateway } from './modules/events/events.gateway';
+import { SwiperModule } from './modules/swiper/swiper.module';
 import { DanmuModule } from './modules/danmu/danmu.module';
 import { CategoryModule } from './modules/category/category.module';
 import { UploadModule } from './modules/upload/upload.module';
@@ -36,8 +36,9 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
     VideoModule,
     UploadModule,
     DanmuModule,
+    SwiperModule,
   ],
   controllers: [AppController],
-  providers: [AppService, EventsGateway],
+  providers: [AppService],
 })
 export class AppModule {}

@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 import { VideoService } from './video.service';
 import { VideoController } from './video.controller';
+import { RedisInstance } from '../../common/redis';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { VideoController } from './video.controller';
     ]),
   ],
   controllers: [VideoController],
-  providers: [VideoService],
+  providers: [VideoService, RedisInstance],
   exports: [VideoModule],
 })
 export class VideoModule {}

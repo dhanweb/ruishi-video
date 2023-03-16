@@ -16,11 +16,15 @@
 
 <style lang="scss">
 	/*每个页面公共css */
-
+  
 	view,
 	text {
-		// color: #333;
+    font-size: 16px;
 	}
+  navigator {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    background-color: rgba(0,0,0,0)!important;
+  }
 
 	.global-btn {
 		background-color: $global-color !important;

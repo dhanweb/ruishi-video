@@ -1,6 +1,5 @@
 <template>
   <div class="app-container">
-    <el-card shadow="never"> </el-card>
     <el-card shadow="never" class="mt-5">
       <template #header>
         <el-button type="success" :icon="Plus" @click="handleAdd">
@@ -98,7 +97,6 @@
 </template>
 
 <script setup lang="ts">
-import { nextTick, reactive, ref, toRefs } from 'vue';
 import { formatDate } from '@/utils/filter';
 import {
   getCateListApi,
@@ -109,15 +107,12 @@ import {
 } from '@/api/video';
 import { ICateInfo } from '@/api/video/types';
 import { IUserInfo } from '@/api/user/types';
-import { PagerParams } from '@/api/common.type';
-import { Search, Plus, Refresh, Delete } from '@element-plus/icons-vue';
+import { Plus } from '@element-plus/icons-vue';
 import type { FormInstance } from 'element-plus';
 import { ElMessageBox, ElMessage, ElInput } from 'element-plus';
-import { Row } from 'element-plus/es/components/table-v2/src/components';
 
 interface STATE {
   tableData: ICateInfo[];
-  search: PagerParams;
   dialog: {
     visible: boolean;
     title: '添加' | '编辑';
@@ -131,12 +126,6 @@ const InputRef = ref<InstanceType<typeof ElInput>>();
 
 const state = reactive<STATE>({
   tableData: [],
-  search: {
-    keyword: '',
-    pageNum: 1,
-    pageSize: 5,
-    order: 'ASC'
-  },
   dialog: {
     visible: false,
     title: '添加'
@@ -146,7 +135,7 @@ const state = reactive<STATE>({
   presult: [],
   inputVisible: false
 });
-const { tableData, search, dialog, cateForm, inputVisible } = toRefs(state);
+const { tableData, dialog, cateForm, inputVisible } = toRefs(state);
 
 // 初始化数据
 async function initData() {
@@ -177,7 +166,10 @@ function formatter2(row: IUserInfo) {
   return formatDate(row.updateTime);
 }
 
-//编辑
+/**
+ * 编辑
+ * @param row
+ */
 async function handleUpdate(row: ICateInfo) {
   cateForm.value = row;
   dialog.value = {
@@ -214,6 +206,10 @@ async function save() {
   dialog.value.visible = false;
   initData();
 }
+
+/**
+ *
+ */
 const showInput = (row: ICateInfo) => {
   inputVisible.value = true;
   cateForm.value.cate_name = '';

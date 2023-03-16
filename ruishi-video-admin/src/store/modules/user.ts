@@ -61,15 +61,18 @@ export const useUserStore = defineStore('user', () => {
   // 注销
   function logout() {
     return new Promise<void>((resolve, reject) => {
-      logoutApi()
-        .then(() => {
-          resetRouter();
-          resetToken();
-          resolve();
-        })
-        .catch(error => {
-          reject(error);
-        });
+      resetRouter();
+      resetToken();
+      resolve();
+      // logoutApi()
+      //   .then(() => {
+      //     resetRouter();
+      //     resetToken();
+      //     resolve();
+      //   })
+      //   .catch(error => {
+      //     reject(error);
+      //   });
     });
   }
 

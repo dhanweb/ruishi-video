@@ -1,240 +1,85 @@
-<!-- 团队介绍 -->
 <template>
   <div class="component-container">
-    <el-card class="team-card">
+    <el-card class="project-card">
       <template #header>
-        <span class="fw-b">有来开源组织 & 技术团队</span>
+        <span class="fw-b">个人简历</span>
       </template>
-      <el-tabs v-model="teamActiveName">
-        <el-tab-pane label="开发者" name="1">
-          <div class="developer" ref="dev_wrapper">
-            <ul class="developer__container">
-              <li
-                class="developer__item"
-                v-for="(item, index) in developers"
-                :key="index"
-              >
-                <div class="developer__inner">
-                  <el-image
-                    class="developer__img"
-                    :src="item.imgUrl"
-                    :preview-src-list="[item.imgUrl]"
-                  ></el-image>
-                  <div class="developer__info">
-                    <span class="developer__nickname">{{ item.nickname }}</span>
-                    <div class="developer__position">
-                      <el-tag
-                        v-for="(position, i) in item.positions"
-                        :type="(colors[i % colors.length] as any)"
-                        :class="i !== 0 ? 'f-ml' : ''"
-                        size="small"
-                        :key="i"
-                        >{{ position }}</el-tag
-                      >
-                    </div>
-                    <div class="developer__homepage">
-                      <a :href="item.homepage" target="_blank">个人主页</a>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </ul>
-            <el-image class="developer__indicator" :src="indicatorImgUrl" />
-          </div>
-        </el-tab-pane>
+      <div class="project-card__main">
+        <p>熟练使用 JavaScript和 ES6及之后的新特性语法</p>
+        <p>熟练使用 Vue2，Vue3，Typescript，Uniapp 进行开发</p>
+        <p>熟悉 ElementUI，ElementPlus，ECharts 等常用组件库</p>
+        <p>了解 NodeJS，Express，NestJS，Mysql 能完成简单的服务器相关开发</p>
 
-        <el-tab-pane label="交流群" name="2">
-          <div class="group">
-            <el-image
-              class="group-img"
-              src="https://www.youlai.tech/files/blog/youlaiqun.png"
-              :preview-src-list="[
-                'https://www.youlai.tech/files/blog/youlaiqun.png'
-              ]"
-            />
-            <div class="group-tip">
-              群二维码过期可添加开发者微信由其拉入群，备注「有来」即可。
-            </div>
-          </div>
-        </el-tab-pane>
+        <el-divider />
 
-        <el-tab-pane label="加入我们" name="3">
-          <div class="join">
-            <p>1. 人品良好、善于思考、执行力强；</p>
-            <p>2. 熟悉项目，且至少给项目提交(过)一个PR；</p>
-            <p>3. Git代码库活跃，个人主页或博客完善者优先；</p>
-            <p>4. 过分优秀者我们会主动联系您...</p>
-            <div class="join__desc">申请加入方式: 添加开发者微信申请即可。</div>
-          </div>
-        </el-tab-pane>
-      </el-tabs>
+        <el-row :gutter="10">
+          <el-col :span="6">
+            <el-badge class="fw-b"> 期望岗位 </el-badge>
+          </el-col>
+          <el-col :span="5"> web前端 4-6K</el-col>
+          <el-col :span="8"> 广州、深圳 </el-col>
+        </el-row>
+        <el-row :gutter="10">
+          <el-col :span="6">
+            <el-badge class="fw-b"> 联系方式 </el-badge>
+          </el-col>
+          <el-col :span="5"> 13169107494 </el-col>
+          <el-col :span="8"> 851849619@qq.com </el-col>
+        </el-row>
+        <el-row :gutter="10">
+          <el-col :span="6">
+            <el-badge class="fw-b"> 教育经历 </el-badge>
+          </el-col>
+          <el-col :span="5"> 2023届本科 </el-col>
+          <el-col :span="9"> 湛江科技学院-计算机科学与技术 </el-col>
+        </el-row>
+        <el-row :gutter="10">
+          <el-col :span="6">
+            <el-badge class="fw-b"> 更多 </el-badge>
+          </el-col>
+          <el-col :span="5">
+            <el-link
+              target="_blank"
+              type="danger"
+              href="https://rstv-1259476264.cos.ap-guangzhou.myqcloud.com/%E6%9E%97%E5%90%AB-%E7%AE%80%E5%8E%86.pdf"
+              >林含-简历.PDF</el-link
+            >
+          </el-col>
+          <el-col :span="5">
+            <el-link
+              target="_blank"
+              type="success"
+              href="https://rstv-1259476264.cos.ap-guangzhou.myqcloud.com/6b80496cacbbf155511b15a1ae6d144.jpg"
+              >微信二维码</el-link
+            >
+          </el-col>
+        </el-row>
+      </div>
     </el-card>
   </div>
 </template>
 
-<script setup lang="ts">
-import { nextTick, onMounted, reactive, ref, toRefs, watchEffect } from 'vue';
-import BScroll from 'better-scroll';
-
-const state = reactive({
-  teamActiveName: '1',
-  developers: [
-    {
-      imgUrl: 'https://s2.loli.net/2022/04/06/yRx8uzj4emA5QVr.jpg',
-      nickname: '郝先瑞',
-      positions: ['后端', '前端', '文档'],
-      homepage: 'https://www.cnblogs.com/haoxianrui/'
-    },
-    {
-      imgUrl: 'https://s2.loli.net/2022/04/06/cQihGv9uPsTjXk1.jpg',
-      nickname: '张川',
-      positions: ['后端', '前端'],
-      homepage: 'https://blog.csdn.net/qq_41595149'
-    },
-    {
-      imgUrl: 'https://s2.loli.net/2022/04/07/2IiOYBHnRGKgCSd.jpg',
-      nickname: '张加林',
-      positions: ['DevOps'],
-      homepage: 'https://gitee.com/ximy'
-    }
-  ],
-  colors: ['', 'success', 'warning', 'danger'],
-  indicatorImgUrl: new URL(
-    `../../../../assets/index/indicator.png`,
-    import.meta.url
-  ).href
-});
-
-const { teamActiveName, developers, colors, indicatorImgUrl } = toRefs(state);
-
-let bScroll = reactive({});
-
-const dev_wrapper = ref<HTMLElement | any>(null);
-
-onMounted(() => {
-  bScroll = new BScroll(dev_wrapper.value, {
-    mouseWheel: true, //开启鼠标滚轮
-    disableMouse: false, //启用鼠标拖动
-    scrollX: true //X轴滚动启用
-  });
-});
-
-watchEffect(() => {
-  nextTick(() => {
-    bScroll && (bScroll as any).refresh();
-  });
-});
+<script lang="ts">
+export default {
+  name: "index",
+};
 </script>
 
 <style lang="scss" scoped>
 .component-container {
-  .team-card {
+  .project-card {
     font-size: 14px;
 
-    .el-tabs__content {
-      .el-tab-pane {
-        height: 265px;
-      }
-    }
-
-    .developer {
-      width: 100%;
-      overflow: hidden;
-
-      &__container {
-        display: inline-flex;
-        overflow: hidden;
-        justify-content: flex-start;
-        padding: 10px;
-
-        .developer__item {
-          &:not(:first-child) {
-            margin-left: 20px;
-          }
-
-          align-items: center;
-          list-style: none;
-          width: 180px;
-          min-width: 180px;
-
-          .developer__inner {
-            border: 1px solid #cccccc;
-            border-radius: 5px;
-            box-shadow: 6px 6px 6px #aaa;
-            padding: 8px;
-            text-align: center;
-
-            .developer__img {
-              height: 100px;
-              width: 100px;
-            }
-
-            .developer__info {
-              padding: 6px;
-              font-size: 14px;
-
-              .developer__position {
-                margin-top: 10px;
-              }
-
-              .developer__homepage {
-                margin-top: 16px;
-
-                a {
-                  display: inline-block;
-                  padding: 4px 10px;
-                  color: #409eff;
-                  border: 1px solid #409eff;
-                  border-radius: 5px;
-                  background: #ecf5ff;
-
-                  &:hover {
-                    background: #409eff;
-                    color: #ffffff;
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-
-      &__indicator {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        width: 120px;
-        height: 100px;
-      }
-    }
-
-    .join {
-      overflow: hidden;
-      p {
-        font-weight: bold;
-      }
-
-      &__desc {
-        margin-top: 20px;
-        color: #409eff;
-        font-weight: bold;
-      }
-    }
-
-    .group {
-      &-img {
-        height: 200px;
-        width: 200px;
-      }
+    &__main {
+      line-height: 28px;
+      height: 320px;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
   }
 
   .fw-b {
     font-weight: bold;
-  }
-
-  .f-ml {
-    margin-left: 5px;
   }
 }
 </style>

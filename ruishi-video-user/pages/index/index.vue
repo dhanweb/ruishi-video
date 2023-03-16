@@ -1,166 +1,204 @@
 <template>
   <view class="index">
-    <rs-header :placeholder="false"></rs-header>
-    <!-- 大图介绍/最热推荐 -->
-    <view class="most-hot">
-      <view class="most-hot__pics">
-        <u--image :showLoading="true" :src="src" width="100%" height="80vh"></u--image>
+    <rs-header></rs-header>
+    <u-skeleton
+      :title="false"
+      rows="1"
+      rowsHeight="calc(100vw / 2.3)"
+      :rowsWidth="['100%']"
+      :loading="skeletonLoad"
+    >
+      <view class="swiper-body">
+        <u-transition :show="!skeletonLoad">
+          <u-swiper
+            height="calc(100vw / 2.3)"
+            @click="swiperClick"
+            indicator
+            circular
+            showTitle
+            indicatorMode="dot"
+            :list="swiperList"
+          >
+          </u-swiper>
+        </u-transition>
       </view>
-      <view class="most-hot__text-box">
-        <view class="tags"> 热门新番 </view>
-        <view class="name">凡人修仙传</view>
-        <view class="introduct">已经出了 </view>
-        <view class="opt">
-          <u-button iconColor="#fff" text="立即播放" class="play global-btn custom-style" icon="play-right-fill">
-          </u-button>
-          <u-button text="图片详情" iconColor="#fff" class="xiangqing"></u-button>
-          <u-button icon="star-fill" iconColor="#fff" class="like"></u-button>
+    </u-skeleton>
+    <view class="list-body">
+      <view class="ske-body" v-for="item in 2" v-if="skeletonLoad">
+        <u-skeleton
+          :title="false"
+          rows="1"
+          rowsHeight="50px"
+          :rowsWidth="['100%']"
+          :loading="skeletonLoad"
+        >
+        </u-skeleton>
+        <view class="item">
+          <u-skeleton
+            class="ske-item"
+            v-for="item in 4"
+            :title="false"
+            rows="1"
+            :rowsWidth="['100%']"
+            rowsHeight="calc(50vw / 1.8)"
+            :loading="skeletonLoad"
+          >
+          </u-skeleton>
         </view>
       </view>
-    </view>
-    <view class="video-list">
-      <view class="list-head">
-        <view class="title">热门新番</view>
-        <view class="more">
-          <u-button class="global-btn" text="更多" @click="goMine"></u-button>
-        </view>
-      </view>
-      <view class="list-main">
-        <block v-for="video in videoList">
-          <rs-card :video="video" :key="video.video_id"></rs-card>
-        </block>
+      <view class="video-list" v-for="item in videoList" v-if="!skeletonLoad">
+        <u-transition :show="!skeletonLoad">
+          <view class="list-head">
+            <view class="title">{{ item.cate_name }}</view>
+            <view class="more">
+              <u-button
+                class="global-btn"
+                text="更多"
+                @click="goMore(item)"
+              ></u-button>
+            </view>
+          </view>
+          <view class="list-main">
+            <block v-for="video in item.children">
+              <rs-card2
+                class="card"
+                :video="video"
+                :key="video.video_id"
+              ></rs-card2>
+            </block>
+          </view>
+        </u-transition>
       </view>
     </view>
   </view>
 </template>
 
 <script>
-  import {
-    getVideoListApi
-  } from '../../api/video.js'
-  export default {
-    data() {
-      return {
-        title: 'Hello',
-        src: 'https://tse3-mm.cn.bing.net/th/id/OIP-C.3PX0DeBzWBkzxO6g-KQi5QHaJ4?pid=ImgDet&rs=1',
-        videoList: [],
-        search: {
-          keyword: '',
-          pageSize: 6,
-          pageNum: 1,
-        },
-      }
+import { getVideoCateListApi } from '../../api/video.js'
+import { getSwiperListApi } from '../../api/home.js'
+import { getCateListAPI } from '../../api/category.js'
+export default {
+  data() {
+    return {
+      videoList: [],
+      cateList: [],
+      search: {
+        keyword: '',
+        pageSize: 4,
+        pageNum: 1,
+      },
+      swiperList: [],
+      skeletonLoad: true,
+    }
+  },
+  onLoad() {
+    this.$store.dispatch('user/getUserInfo')
+    console.log('load')
+  },
+  created() {
+    this.initData()
+    this.setIndexVideo()
+  },
+  methods: {
+    goMore(item) {
+      console.log('sgo')
+      uni.navigateTo({
+        url: `/pages/list/list?pid=${item.pid}&cid=${item.cate_id}`,
+      })
     },
-    created() {
-      this.initData()
+    async initData() {
+      const { data } = await getSwiperListApi()
+      this.swiperList = data
+      setTimeout(() => {
+        this.skeletonLoad = false
+      }, 300)
     },
-    methods: {
-      goMine() {
-        console.log('sgo')
-        uni.navigateTo({
-          url: '/pages/list/list',
+    async setIndexVideo() {
+      const { data } = await getCateListAPI()
+
+      data[0].children.forEach(async (item, index) => {
+        if (index === 3) return
+        console.log(item)
+        const { data: videoData } = await getVideoCateListApi({
+          category: [item.cate_id],
         })
-      },
-      async initData() {
-        const result = await getVideoListApi(this.search)
-        this.videoList = result.data.data
-      },
+        console.log('videoData', videoData)
+        const obj = {
+          pid: data[0].cate_id,
+          cate_id: item.cate_id,
+          cate_name: item.cate_name,
+          children: videoData,
+        }
+        this.videoList.push(obj)
+      })
+      // const catelist.push()
     },
-  }
+    swiperClick(index) {
+      uni.navigateTo({
+        url:
+          '/pages/play/play?videoID=' + this.swiperList[index].video.video_id,
+      })
+    },
+  },
+}
 </script>
 
 <style lang="scss">
-  .index {
-    padding-bottom: 200px;
+.index {
+  width: 100%;
+  padding-bottom: 50px;
 
-    .most-hot {
-      position: relative;
-      padding-bottom: 50px;
-      background-color: #12141a;
+  .ske-body {
+    margin-top: 10px;
+    padding: 0 10px;
+    box-sizing: border-box;
 
-      &__text-box {
-        position: absolute;
-        bottom: 10px;
-        left: 0;
-        width: 100%;
-        padding-bottom: 10px;
-        padding-left: 10px;
-        color: #fff;
-        background: linear-gradient(to top, #12141a, rgba(0, 0, 0, 0));
+    .item {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 10px;
+      margin-top: 10px;
+    }
+  }
 
-        .tags {
-          text-align: center;
-          background-color: $global-color;
-          color: #fff;
-          font-size: 14px;
-          margin-top: -10px;
-          padding: 2px 12px;
-          border-radius: 4px;
-          width: 60px;
-        }
+  .video-list {
+    padding: 0 10px;
 
-        .name {
-          margin: 10px 0;
-          font-weight: bolder;
-          font-size: 20px;
-        }
+    .list-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0;
 
-        .opt {
-          display: flex;
-          width: 60%;
-          margin-top: 10px;
+      .title {
+        font-weight: bolder;
+        font-size: 20px;
+      }
 
-          .u-button.play {
-            flex: 3;
-          }
+      .more {
+        width: 60px;
 
-          .xiangqing,
-          .like {
-            background-color: #4e4f53;
-            border-color: #4e4f53;
-          }
-
-          .xiangqing {
-            flex: 2;
-            margin: 0 10px;
-            color: #fff;
-          }
-
-          .like {
-            flex: 1;
-          }
+        .u-button {
+          height: 30px;
         }
       }
     }
 
-    .video-list {
-      padding: 0 10px;
+    .list-main {
+      // display: grid;
+      // grid-template-columns: repeat(2, 1fr);
+      // grid-gap: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
 
-      .list-head {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 10px 0;
-
-        .title {
-          font-weight: bolder;
-          font-size: 20px;
-        }
-
-        .more {
-          width: 60px;
-
-          .u-button {
-            height: 30px;
-          }
-        }
-      }
-
-      .list-main {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-gap: 10px;
+      .card {
+        width: 49%;
+        flex-shrink: 1;
+        margin-bottom: 10px;
       }
     }
   }
+}
 </style>

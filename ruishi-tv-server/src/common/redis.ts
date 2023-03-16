@@ -1,26 +1,21 @@
-import configuration from 'config/index';
-import { rslog } from 'src/utils/rslog';
-// src/database/redis.ts
 import Redis from 'ioredis';
 
-const config = configuration();
-
-let n = 0;
-const redisIndex = []; // 用于记录 redis 实例索引
-const redisList = []; // 用于存储 redis 实例
+// import { redisConfig, redisClusterConfig } from '../../config/redis.config';
+import configuration from '../../config';
+const { redis } = configuration();
 
 export class RedisInstance {
-  static async initRedis(method: string, db = 0) {
-    const isExist = redisIndex.some((x) => x === db);
-    if (!isExist) {
-      rslog.debug(
-        `[Redis ${db}]来自 ${method} 方法调用, Redis 实例化了 ${++n} 次 `,
-      );
-      redisList[db] = new Redis({ ...config.redis, db });
-      redisIndex.push(db);
-    } else {
-      rslog.debug(`[Redis ${db}]来自 ${method} 方法调用`);
-    }
-    return redisList[db];
+  static async initRedis() {
+    // if (connectType && connectType === 'cluster') {
+    //   const cluster = new Redis.Cluster(redis);
+    //   cluster.on('error', (err) => console.log('Redis cluster Error', err));
+    //   cluster.on('connect', () => console.log('redis集群连接成功'));
+    //   return cluster;
+    // } else {
+    const ioredis = new Redis(redis.port, redis.host, { name: redis.name });
+    ioredis.on('error', (err) => console.log('Redis cluster Error', err));
+    ioredis.on('connect', () => console.log('redis连接成功'));
+    return ioredis;
+    // }
   }
 }

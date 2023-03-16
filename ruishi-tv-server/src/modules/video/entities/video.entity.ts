@@ -10,6 +10,7 @@ import {
   ManyToMany,
   JoinTable,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 
 @Entity('video')
@@ -34,6 +35,7 @@ export class VideoEntity {
    * 视频集数
    */
   @OneToMany(() => PartsEntity, (part) => part.video)
+  @JoinColumn({ name: 'parts' })
   parts: PartsEntity[];
 
   @Column({ comment: '点赞数', default: 0 })

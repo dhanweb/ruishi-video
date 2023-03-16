@@ -3,6 +3,7 @@ export interface transcodingResult {
   ProcedureTask: {
     TaskId: string;
     Status: string;
+    FileUrl: string;
     MediaProcessResultSet: [
       {
         TranscodeTask: {

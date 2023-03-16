@@ -79,6 +79,7 @@ import type { FormRules, FormInstance, UploadProps } from 'element-plus';
 import { UploadUrl } from '@/globalVar';
 import { useRoute, useRouter } from 'vue-router';
 import { ElMessage } from 'element-plus';
+import { Plus } from '@element-plus/icons-vue';
 
 interface STATE {
   videoForm: IVideoInfo;

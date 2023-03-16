@@ -9,7 +9,7 @@ import {
 const state = {
 	user: {},
 	token: getToken(),
-	isLogin: false
+	isLogin: getToken() ? true : false
 }
 
 const mutations = {
@@ -38,13 +38,16 @@ const actions = {
 		commit('SET_TOKEN', result.data.token)
 	},
 	async getUserInfo({ commit, state }) { 
-		if(!state.isLogin) return false
+    if(!state.isLogin) return false
     console.log('getUserInfo');
 		const result = await getUserInfoApi()
 		console.log('store.getUserInfo' ,result);
 		commit('SET_USERINFO', result.data)
 	},
 	async logout({commit}) {
+    uni.showToast({
+      title: '退出成功'
+    })
 		console.log('logout');
 		commit('REMOVE_TOKEN')
 	}

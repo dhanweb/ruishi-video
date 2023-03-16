@@ -93,3 +93,20 @@ export function formatDate(time?: Date) {
   const sec = date.getSeconds().toString().padStart(2, '0');
   return `${year}-${month}-${day} ${hour}:${min}`;
 }
+
+/**
+ * 秒数转成时分秒形式 1:12:28
+ */
+
+export function secondsToTime(seconds: string) {
+  const time = parseInt(seconds);
+  const s = Math.floor(time % 60);
+  const m = Math.floor((time / 60) % 60);
+  const h = Math.floor((time / 60 / 60) % 24);
+
+  const ss = (s + '').padStart(2, '0');
+  const mm = (m + '').padStart(2, '0');
+  const hh = (h + '').padStart(2, '0');
+
+  return `${hh}:${mm}:${ss}`;
+}
